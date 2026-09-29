@@ -1,0 +1,6 @@
+{
+  "name": "Markthalle Neun Causal Inference Simulator",
+  "description": "Interactive demonstration of Rubin's potential outcomes framework: why randomization eliminates confounding bias in Markthalle Neun's Tuesday event pilot.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
