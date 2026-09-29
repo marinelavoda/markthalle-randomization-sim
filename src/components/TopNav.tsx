@@ -23,9 +23,6 @@ export const TopNav: React.FC<TopNavProps> = ({ onReset, onOpenGuide, onShare })
           <a href="#simulator" className="hover:text-amber-300 transition-colors">
             Simulation
           </a>
-          <a href="#single-pilot" className="hover:text-amber-300 transition-colors">
-            Single Pilot
-          </a>
           <a href="#rubin-framework" className="hover:text-amber-300 transition-colors">
             Rubin Framework
           </a>

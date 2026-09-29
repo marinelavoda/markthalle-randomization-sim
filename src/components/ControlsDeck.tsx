@@ -33,15 +33,22 @@ export const ControlsDeck: React.FC<ControlsDeckProps> = ({
     updateParam('seed', newSeed);
   };
 
+  const SCENARIO_CAPTIONS: Record<string, string> = {
+    default: "Event days land in weeks that were busy anyway, so the estimate is biased, and a harmful event can look helpful.",
+    unbiased: "When events are assigned by coin flip, the average estimate matches the true effect.",
+    'zero-confounder': "If busy weeks don't have higher sales, selective picking causes no bias: bias appears only when assignment is linked to the outcomes.",
+    'big-data': "More weeks make estimates more precise, but the manager's method is still wrong on average.",
+  };
+
   return (
     <div className="bg-white rounded-xl border border-stone-200 shadow-xs overflow-hidden">
       {/* Top Banner: Presets */}
       <div className="bg-stone-50/80 px-5 py-3.5 border-b border-stone-200">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-600" />
-            <span className="text-xs font-semibold text-stone-700 uppercase tracking-wider">
-              Experimental Scenarios (What to Try)
+            <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
+            <span className="text-xs font-semibold text-stone-700 uppercase tracking-wider whitespace-nowrap">
+              Walk through the claim in 4 steps
             </span>
           </div>
           <div className="flex flex-wrap items-center gap-1.5">
@@ -52,6 +59,8 @@ export const ControlsDeck: React.FC<ControlsDeckProps> = ({
                 numWeeks: 20,
                 busynessEffect: 600,
                 noiseSd: 300,
+                numPilots: 2000,
+                baseSales: 2000,
               })}
               className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
                 activePreset === 'default'
@@ -59,12 +68,18 @@ export const ControlsDeck: React.FC<ControlsDeckProps> = ({
                   : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-100'
               }`}
             >
-              Default (The Kreuzberg Trap)
+              1. The problem: manager picks busy weeks
             </button>
 
             <button
               onClick={() => onApplyPreset('unbiased', {
+                trueEffect: -200,
                 selectionStrength: 0,
+                numWeeks: 20,
+                busynessEffect: 600,
+                noiseSd: 300,
+                numPilots: 2000,
+                baseSales: 2000,
               })}
               className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
                 activePreset === 'unbiased'
@@ -72,26 +87,18 @@ export const ControlsDeck: React.FC<ControlsDeckProps> = ({
                   : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-100'
               }`}
             >
-              Selection = 0 (Unbiased Baseline)
-            </button>
-
-            <button
-              onClick={() => onApplyPreset('big-data', {
-                numWeeks: 52,
-                selectionStrength: 1.5,
-              })}
-              className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
-                activePreset === 'big-data'
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-100'
-              }`}
-            >
-              52 Weeks (Big Data Can&apos;t Fix Bias)
+              2. The fix: pick weeks at random
             </button>
 
             <button
               onClick={() => onApplyPreset('zero-confounder', {
+                trueEffect: -200,
+                selectionStrength: 1.5,
+                numWeeks: 20,
                 busynessEffect: 0,
+                noiseSd: 300,
+                numPilots: 2000,
+                baseSales: 2000,
               })}
               className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
                 activePreset === 'zero-confounder'
@@ -99,10 +106,36 @@ export const ControlsDeck: React.FC<ControlsDeckProps> = ({
                   : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-100'
               }`}
             >
-              Confounder = €0 (No Sales Impact)
+              3. Why: remove the link to sales
+            </button>
+
+            <button
+              onClick={() => onApplyPreset('big-data', {
+                trueEffect: -200,
+                selectionStrength: 1.5,
+                numWeeks: 52,
+                busynessEffect: 600,
+                noiseSd: 300,
+                numPilots: 2000,
+                baseSales: 2000,
+              })}
+              className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
+                activePreset === 'big-data'
+                  ? 'bg-amber-600 text-white shadow-xs'
+                  : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-100'
+              }`}
+            >
+              4. More data doesn&apos;t help
             </button>
           </div>
         </div>
+
+        {activePreset && SCENARIO_CAPTIONS[activePreset] && (
+          <div className="mt-3 pt-2.5 border-t border-stone-200 text-xs text-stone-700 flex items-start gap-2 bg-amber-50/50 p-2 rounded-md border-amber-200/50">
+            <span className="font-semibold text-amber-800 shrink-0 font-sans">Summary:</span>
+            <span className="text-stone-700 leading-relaxed font-sans">{SCENARIO_CAPTIONS[activePreset]}</span>
+          </div>
+        )}
       </div>
 
       {/* Main Sliders Grid */}

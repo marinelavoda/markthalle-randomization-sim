@@ -16,7 +16,6 @@ import { ControlsDeck } from './components/ControlsDeck';
 import { ResultsSummaryBanner } from './components/ResultsSummaryBanner';
 import { HistogramChart } from './components/HistogramChart';
 import { ResultsTable } from './components/ResultsTable';
-import { SinglePilotScatter } from './components/SinglePilotScatter';
 import { EducationalSection } from './components/EducationalSection';
 import { CourseworkGuideModal } from './components/CourseworkGuideModal';
 import { ShareModal } from './components/ShareModal';
@@ -64,7 +63,8 @@ export default function App() {
 
   const handleApplyPreset = (presetName: string, presetParams: Partial<SimulationParams>) => {
     const newP: SimulationParams = {
-      ...params,
+      ...DEFAULT_PARAMS,
+      seed: params.seed,
       ...presetParams,
     };
     setParams(newP);
@@ -136,12 +136,6 @@ export default function App() {
         <section aria-label="Results Table">
           <ResultsTable result={result} />
         </section>
-
-        {/* Deep Dive: Single Pilot Microcosm Scatter Plot */}
-        <SinglePilotScatter
-          pilots={result.examplePilots}
-          params={result.params}
-        />
 
         {/* Educational Framework, How-To, and What-To-Try */}
         <EducationalSection />

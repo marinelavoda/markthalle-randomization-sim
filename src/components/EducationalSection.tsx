@@ -65,42 +65,52 @@ export const EducationalSection: React.FC = () => {
           <div className="flex items-center gap-2 pb-2 border-b border-stone-100">
             <Lightbulb className="w-5 h-5 text-amber-600" />
             <h3 className="font-serif text-lg font-semibold text-stone-900">
-              What to Try (Rubin Demonstration Experiments)
+              The Claim in 4 Steps (What to Notice)
             </h3>
           </div>
 
           <div className="space-y-3 text-xs text-stone-600 leading-relaxed">
             <p>
-              Run these guided experiments to witness the core principles of causal inference:
+              Step through the 4 scenario buttons above to see the claim in action:
             </p>
-            <div className="space-y-3">
-              <div className="p-3 bg-stone-50 rounded-lg border border-stone-200">
-                <div className="font-semibold text-stone-900 mb-1 flex items-center justify-between">
-                  <span>1. Set Selection Strength to 0.0</span>
-                  <span className="text-[10px] font-mono text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">Unbiased baseline</span>
+            <div className="space-y-2.5">
+              <div className="p-2.5 bg-stone-50 rounded-lg border border-stone-200">
+                <div className="font-semibold text-stone-900 mb-0.5 flex items-center justify-between">
+                  <span>1. The Problem: Manager picks busy weeks</span>
+                  <span className="text-[10px] font-mono text-rose-700 bg-rose-100 px-1.5 py-0.5 rounded">Confounded</span>
                 </div>
                 <p className="text-[11px] text-stone-600">
-                  When the manager flips a fair coin, assignment is independent of busyness. Both distributions overlay almost perfectly centered on −€200, with near-zero bias.
+                  Event days land in weeks that were busy anyway, so the estimate is biased, and a harmful event can look helpful.
                 </p>
               </div>
 
-              <div className="p-3 bg-stone-50 rounded-lg border border-stone-200">
-                <div className="font-semibold text-stone-900 mb-1 flex items-center justify-between">
-                  <span>2. Increase Weeks to 52 (Big Data Fallacy)</span>
-                  <span className="text-[10px] font-mono text-rose-700 bg-rose-100 px-1.5 py-0.5 rounded">Precision ≠ Accuracy</span>
+              <div className="p-2.5 bg-stone-50 rounded-lg border border-stone-200">
+                <div className="font-semibold text-stone-900 mb-0.5 flex items-center justify-between">
+                  <span>2. The Fix: Pick weeks at random</span>
+                  <span className="text-[10px] font-mono text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">Unbiased</span>
                 </div>
                 <p className="text-[11px] text-stone-600">
-                  Watch the histograms narrow as standard error shrinks! But notice: manager choice remains stuck at +€435! More data makes a confounded estimate more precisely wrong.
+                  When events are assigned by coin flip, the average estimate matches the true effect (−€200).
                 </p>
               </div>
 
-              <div className="p-3 bg-stone-50 rounded-lg border border-stone-200">
-                <div className="font-semibold text-stone-900 mb-1 flex items-center justify-between">
-                  <span>3. Vary Busyness Confounder (€0 vs. €1,000)</span>
-                  <span className="text-[10px] font-mono text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">Confounder Scaling</span>
+              <div className="p-2.5 bg-stone-50 rounded-lg border border-stone-200">
+                <div className="font-semibold text-stone-900 mb-0.5 flex items-center justify-between">
+                  <span>3. Why: Remove the link to sales</span>
+                  <span className="text-[10px] font-mono text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded">Confounder = €0</span>
                 </div>
                 <p className="text-[11px] text-stone-600">
-                  Set busyness effect to €0: bias disappears because weather doesn&apos;t impact sales. Set to €1,000: bias explodes to over +€1,000.
+                  If busy weeks don&apos;t have higher sales, selective picking causes no bias: bias appears only when assignment is linked to the outcomes.
+                </p>
+              </div>
+
+              <div className="p-2.5 bg-stone-50 rounded-lg border border-stone-200">
+                <div className="font-semibold text-stone-900 mb-0.5 flex items-center justify-between">
+                  <span>4. More data doesn&apos;t help</span>
+                  <span className="text-[10px] font-mono text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">52 Weeks</span>
+                </div>
+                <p className="text-[11px] text-stone-600">
+                  More weeks make estimates more precise, but the manager&apos;s method is still wrong on average.
                 </p>
               </div>
             </div>
